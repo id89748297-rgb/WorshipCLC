@@ -6,51 +6,132 @@
     <title>Worship CLC</title>
     <script src="https://cloudflare.com"></script>
     <style>
-        :root { --bg: #121212; --card: #1e1e1e; --text: #ffffff; --primary: #007aff; --accent: #34c759; --danger: #ff3b30; }
+        :root { 
+            --bg: #0b0e14; 
+            --card: #141923; 
+            --text: #f0f2f5; 
+            --primary: #386bf6; 
+            --accent: #10b981; 
+            --danger: #ef4444; 
+            /* Заменили цвет аккордов на темно-синий */
+            --chord-color: #2563eb; 
+        }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 0; padding-bottom: 90px; }
-        header { background: var(--card); padding: 20px; text-align: center; font-weight: bold; font-size: 1.2rem; border-bottom: 1px solid #2c2c2c; display: flex; justify-content: space-between; align-items: center; }
-        .container { padding: 15px; max-width: 600px; margin: 0 auto; }
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            padding-bottom: 95px; 
+        }
+        header { 
+            background: var(--card); 
+            padding: 18px 20px; 
+            text-align: center; 
+            font-weight: 700; 
+            font-size: 1.25rem; 
+            border-bottom: 1px solid #1e2638; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .container { padding: 15px; max-width: 650px; margin: 0 auto; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        .song-card { background: var(--card); border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); display: flex; justify-content: space-between; align-items: center; }
-        .song-info { flex: 1; }
-        .song-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 5px; color: var(--primary); }
-        .song-author { font-size: 0.9rem; color: #aaa; }
-        .lyrics { white-space: pre-wrap; font-family: monospace; font-size: 1.1rem; line-height: 1.6; background: #000; padding: 15px; border-radius: 8px; overflow-x: auto; margin-top: 15px; }
-        .chord { color: #ff9f0a; font-weight: bold; display: inline-block; }
-        .controls { display: flex; gap: 10px; margin: 15px 0; flex-wrap: wrap; }
-        button { background: var(--primary); color: white; border: none; padding: 12px 15px; border-radius: 8px; font-weight: bold; font-size: 0.9rem; cursor: pointer; flex: 1; min-width: 80px; }
-        button.accent { background: var(--accent); }
-        button.secondary { background: #3a3a3c; }
-        button.danger { background: var(--danger); }
-        .audio-box { background: #2c2c2e; padding: 12px; border-radius: 8px; margin-top: 10px; }
-        .audio-status { font-size: 0.8rem; color: #aaa; margin-top: 5px; text-align: center; }
-        .nav-bar { position: fixed; bottom: 0; left: 0; right: 0; height: 65px; background: var(--card); display: flex; border-top: 1px solid #2c2c2c; z-index: 10; }
-        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #8e8e93; font-size: 0.8rem; text-decoration: none; }
-        .nav-item.active { color: var(--primary); }
-        .nav-icon { font-size: 1.4rem; margin-bottom: 2px; }
         
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-size: 0.9rem; color: #aaa; }
-        input[type="text"], textarea { width: 100%; background: #2c2c2e; border: 1px solid #3a3a3c; border-radius: 8px; padding: 10px; color: white; font-size: 1rem; }
-        textarea { height: 150px; font-family: monospace; }
-        .file-input-label { display: block; background: #3a3a3c; text-align: center; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 5px; }
-        input[type="file"] { display: none; }
+        .song-card { 
+            background: var(--card); 
+            border-radius: 8px; 
+            padding: 16px; 
+            margin-bottom: 12px; 
+            border: 1px solid #1e2638;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            cursor: pointer;
+        }
+        .song-info { flex: 1; }
+        .song-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+        .song-author { font-size: 0.9rem; color: #718096; }
+        
+        .lyrics-container { 
+            background: #0b0e14; 
+            padding: 20px 15px; 
+            border-radius: 8px; 
+            overflow-x: auto; 
+            margin-top: 15px; 
+            border: 1px solid #1e2638;
+        }
+        .line { 
+            display: block; 
+            min-height: 1.2em; 
+            position: relative; 
+            margin-bottom: 14px; 
+            font-size: 1.1rem; 
+            line-height: 1.4;
+            white-space: pre;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        .chord-line { 
+            display: block; 
+            min-height: 1.1em; 
+            color: var(--chord-color); 
+            font-weight: 700; 
+            font-size: 1.05rem;
+            font-family: "SF Mono", SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            margin-bottom: -2px;
+            white-space: pre;
+        }
+        
+        .controls { display: flex; gap: 8px; margin: 15px 0; flex-wrap: wrap; }
+        button { 
+            background: var(--primary); 
+            color: white; 
+            border: none; 
+            padding: 12px 16px; 
+            border-radius: 6px; 
+            font-weight: 600; 
+            font-size: 0.9rem; 
+            cursor: pointer; 
+            flex: 1; 
+            min-width: 80px; 
+            transition: opacity 0.2s;
+        }
+        button:active { opacity: 0.8; }
+        button.accent { background: var(--accent); }
+        button.secondary { background: #242f41; color: #cbd5e1; border: 1px solid #334155; }
+        button.danger { background: var(--danger); }
+        
+        .audio-box { background: var(--card); padding: 14px; border-radius: 8px; margin-top: 10px; border: 1px solid #1e2638; }
+        .audio-status { font-size: 0.8rem; color: #718096; margin-top: 6px; text-align: center; }
+        
+        .nav-bar { position: fixed; bottom: 0; left: 0; right: 0; height: 68px; background: var(--card); display: flex; border-top: 1px solid #1e2638; z-index: 10; }
+        .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #4a5568; font-size: 0.8rem; text-decoration: none; cursor: pointer; }
+        .nav-item.active { color: var(--primary); font-weight: 600; }
+        .nav-icon { font-size: 1.35rem; margin-bottom: 3px; }
+        
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; margin-bottom: 6px; font-size: 0.9rem; color: #a0aec0; font-weight: 500; }
+        input[type="text"], textarea { width: 100%; background: var(--card); border: 1px solid #1e2638; border-radius: 6px; padding: 12px; color: white; font-size: 1rem; }
+        textarea { height: 280px; font-family: monospace; resize: none; }
+        
+        .file-input-label { display: block; background: var(--primary) !important; color: white !important; text-align: center; padding: 14px; border-radius: 6px; font-weight: 700; cursor: pointer; margin-top: 5px; }
+        input[type="file"] { display: none !important; }
     </style>
 </head>
 <body>
 
     <header>
         <span id="page-title">База песен</span>
-        <button id="btn-admin-toggle" class="secondary" style="max-width: fit-content; padding: 5px 10px; font-size: 0.8rem;" onclick="toggleAdminMode()">Редактор: Выкл</button>
+        <button id="btn-admin-toggle" class="secondary" style="max-width: fit-content; padding: 6px 12px; font-size: 0.8rem; border-radius: 4px;" onclick="toggleAdminMode()">Редактор: Выкл</button>
     </header>
 
     <div class="container">
         <!-- ВКЛАДКА 1: БАЗА ПЕСЕН -->
         <div id="tab-songs" class="tab-content active">
             <div class="controls" id="admin-add-btn-box" style="display: none;">
-                <button class="accent" onclick="switchTab('add-song')">+ Добавить новую песню</button>
+                <button class="accent" onclick="openAddForm()">+ Добавить новую песню</button>
             </div>
             <div id="songs-list"></div>
         </div>
@@ -63,56 +144,60 @@
             <div id="worship-list"></div>
         </div>
 
-        <!-- ВКЛАДКА 3: ФОРМА ДОБАВЛЕНИЯ ПЕСНИ -->
+        <!-- ВКЛАДКА 3: ФОРМА ДОБАВЛЕНИЯ / РЕДАКТИРОВАНИЯ -->
         <div id="tab-add-song" class="tab-content">
             <button class="secondary" onclick="switchTab('songs')">← Отмена</button>
-            <h3 style="margin-top: 15px;">Новая песня</h3>
+            <h3 id="form-header" style="margin-top: 15px; font-weight: 700;">Новая песню</h3>
+            <input type="hidden" id="form-id">
             
             <div class="form-group">
                 <label>Название песни</label>
-                <input type="text" id="form-title" placeholder="Например: Велик наш Бог">
+                <input type="text" id="form-title" placeholder="Например: Исход">
             </div>
             <div class="form-group">
                 <label>Автор / Группа</label>
-                <input type="text" id="form-author" placeholder="Например: Крис Томлин">
+                <input type="text" id="form-author" placeholder="Например: VL worship">
             </div>
             <div class="form-group">
                 <label>Аудиофайл (MP3 / WAV)</label>
-                <label class="file-input-label" id="file-label">Выбрать файл с iPhone 📁</label>
+                <label for="form-audio" class="file-input-label" id="file-label">ВЫБРАТЬ АУДИОФАЙЛ 📁</label>
                 <input type="file" id="form-audio" accept="audio/*" onchange="handleFileSelect(this)">
+                <div id="file-info-status" style="font-size: 0.8rem; color: #718096; margin-top: 5px; text-align: center;"></div>
             </div>
             <div class="form-group">
-                <label>Текст и Аккорды (Пишите аккорды в скобках перед словом, например: [C]Текст)</label>
-                <textarea id="form-lyrics" placeholder="[G]Велик наш Бог, [Em]пой со мной..."></textarea>
+                <label>Текст и Аккорды (Пишите аккорды в скобках перед слогом, например: [C]Текст)</label>
+                <textarea id="form-lyrics" placeholder="[E]Был я окружён, но Ты [C#m]услышал стон..."></textarea>
             </div>
-            <button class="accent" style="width: 100%; margin-top: 10px;" onclick="saveNewSong()">Сохранить песню в базу</button>
+            <button class="accent" id="btn-submit-form" style="width: 100%; margin-top: 10px; padding: 14px; font-size: 1rem;" onclick="saveSongForm()">Сохранить изменения</button>
         </div>
 
-        <!-- ОКНО ОДНОЙ ПЕСНИ -->
+        <!-- ОКНО ПРОСМОТРА ОДНОЙ ПЕСНИ -->
         <div id="tab-single-song" class="tab-content">
             <button class="secondary" onclick="goBackToPreviousTab()">← Назад</button>
-            <h2 id="current-song-title" style="margin-bottom:2px; margin-top: 15px;"></h2>
-            <div id="current-song-author" style="color:#aaa; margin-bottom:15px;"></div>
+            <h2 id="current-song-title" style="margin-bottom:4px; margin-top: 20px; font-weight: 700;"></h2>
+            <div id="current-song-author" style="color:#718096; margin-bottom:20px; font-size: 1rem;"></div>
             
             <div class="audio-box" id="audio-container">
-                <label style="font-size:0.9rem; color:#aaa;">Аудио-трек:</label>
-                <div class="controls" style="margin: 5px 0;">
+                <label style="font-size:0.85rem; color:#a0aec0; font-weight: 500;">Аудио-трек (Транспонирование):</label>
+                <div class="controls" style="margin: 8px 0 4px 0;">
                     <button id="btn-play" onclick="toggleAudio()">Play</button>
-                    <button class="secondary" onclick="changeAudioPitch(-1)">Аудио -1</button>
-                    <button class="secondary" onclick="changeAudioPitch(1)">Аудио +1</button>
+                    <button class="secondary" onclick="changeAudioPitch(-1)">♭ Аудио -1</button>
+                    <button class="secondary" onclick="changeAudioPitch(1)">♯ Аудио +1</button>
                 </div>
                 <div class="audio-status" id="audio-pitch-status">Тональность аудио: Оригинал</div>
             </div>
 
             <div class="controls">
-                <button onclick="changeChordsPitch(-1)">Аккорды -1</button>
-                <button onclick="changeChordsPitch(1)">Аккорды +1</button>
-                <button class="secondary" id="btn-set-status" onclick="toggleWorshipStatus()">В сет-лист</button>
+                <button class="secondary" onclick="changeChordsPitch(-1)">♭ Аккорды -1</button>
+                <button class="secondary" onclick="changeChordsPitch(1)">♯ Аккорды +1</button>
+                <button id="btn-set-status" onclick="toggleWorshipStatus()">В сет-лист</button>
             </div>
             
-            <div class="lyrics" id="song-lyrics-box"></div>
-            <div id="admin-delete-box" style="margin-top: 20px; display: none;">
-                <button class="danger" onclick="deleteCurrentSong()">Удалить песню из базы</button>
+            <div class="lyrics-container" id="song-lyrics-box"></div>
+            
+            <div id="admin-edit-controls" style="margin-top: 25px; display: none; flex-direction: column; gap: 10px;">
+                <button class="secondary" onclick="openEditForm()">📝 Редактировать текст / аудио</button>
+                <button class="danger" onclick="deleteCurrentSong()">❌ Удалить песню из базы</button>
             </div>
         </div>
     </div>
@@ -127,266 +212,189 @@
     </nav>
 
     <script>
-        const defaultSongs = [
-            { id: 1, title: "Благословенно Имя Твое", author: "Worship CLC Band", audioUrl: "", lyrics: "[G] Благосло[D]венно Имя Тво[Em]е [C]\nКогда зем[G]ля изоби[D]лует благами [C]" },
-            { id: 2, title: "Велик наш Бог", author: "Крис Томлин", audioUrl: "", lyrics: "[G] Велик наш Бог, [Em] пой со мной\nВелик наш Бог, [C] увидят все\nКакой ве[D]ликий наш [G] Бог!" }
-        ];
+        let db = null; let songsDatabase = []; let worshipSetIds = JSON.parse(localStorage.getItem('worship_set')) || []; let adminMode = localStorage.getItem('worship_admin') === 'true';
+        let currentSong = null; let currentChordShift = 0; let currentAudioShift = 0; let player = null; let pitchShiftNode = null; let isPlaying = false; let tempAudioBlob = null; let previousTab = 'songs';
+        const scale = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "H"];
 
-        let songsDatabase = JSON.parse(localStorage.getItem('worship_songs')) || defaultSongs;
-        let worshipSetIds = JSON.parse(localStorage.getItem('worship_set')) || [];
-        let adminMode = localStorage.getItem('worship_admin') === 'true';
-        
-        let currentSong = null;
-        let currentChordShift = 0;
-        let currentAudioShift = 0;
-        let player = null;
-        let pitchShiftNode = null;
-        let isPlaying = false;
-        let tempAudioData = ""; 
-        let previousTab = 'songs';
-        const scale = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+        const dbRequest = indexedDB.open("WorshipCLC_DB", 1);
+        dbRequest.onupgradeneeded = function(e) {
+            let database = e.target.result;
+            if (!database.objectStoreNames.contains("songs")) { database.createObjectStore("songs", { keyPath: "id" }); }
+        };
+        dbRequest.onsuccess = function(e) { db = e.target.result; loadSongsFromDB(); };
 
-        function saveToStorage() {
-            localStorage.setItem('worship_songs', JSON.stringify(songsDatabase));
-            localStorage.setItem('worship_set', JSON.stringify(worshipSetIds));
+        function loadSongsFromDB() {
+            let tx = db.transaction("songs", "readonly"); let store = tx.objectStore("songs"); let req = store.getAll();
+            req.onsuccess = function() {
+                songsDatabase = req.result;
+                if(songsDatabase.length === 0) {
+                    songsDatabase = [
+                        { 
+                            id: 1, 
+                            title: "Исход", 
+                            author: "VL worship", 
+                            audioBlob: null, 
+                            lyrics: "INTRO:  \n[E] [C#m] [G#m] [H] /2р.\nТакт пауза \n\n1 КУПЛЕТ:  \n[E]Был я окружён, но Ты [C#m]услышал стон [G#m]\n[H]И за Собой повёл.\n[E]Море разделил, про[C#m]вёл среди глубин, [G#m]\n[H]Меня освободил.\n[C#m] [F#]\n\nПРИПЕВ:  \n[E]Я верю в Тебя, Бог Ты [C#m]творишь чудеса\n[G#m]И если выхода нет, Ты раз[F#]делишь моря.\n[C#m]И если близок мой враг, По[E]беда в Твоих руках\n[G#m]Ты не оставишь меня, Ты за[F#]щита моя" 
+                        }
+                    ];
+                    let writeTx = db.transaction("songs", "readwrite"); let writeStore = writeTx.objectStore("songs");
+                    songsDatabase.forEach(s => writeStore.put(s));
+                }
+                renderSongsList();
+            };
         }
 
-        function toggleAdminMode() {
-            adminMode = !adminMode;
-            localStorage.setItem('worship_admin', adminMode);
-            updateAdminUI();
-        }
+        function toggleAdminMode() { adminMode = !adminMode; localStorage.setItem('worship_admin', adminMode); updateAdminUI(); }
 
         function updateAdminUI() {
-            const btn = document.getElementById('btn-admin-toggle');
-            const addBox = document.getElementById('admin-add-btn-box');
-            const delBox = document.getElementById('admin-delete-box');
-            
+            const btn = document.getElementById('btn-admin-toggle'); const addBox = document.getElementById('admin-add-btn-box'); const editBox = document.getElementById('admin-edit-controls');
             if(adminMode) {
-                btn.innerText = "Редактор: Вкл";
-                btn.style.background = "var(--accent)";
-                addBox.style.display = "block";
-                if(currentSong) delBox.style.display = "block";
+                btn.innerText = "Редактор: Вкл"; btn.style.background = "var(--accent)"; addBox.style.display = "block"; if(currentSong) editBox.style.display = "flex";
             } else {
-                btn.innerText = "Редактор: Выкл";
-                btn.style.background = "#3a3a3c";
-                addBox.style.display = "none";
-                delBox.style.display = "none";
+                btn.innerText = "Редактор: Выкл"; btn.style.background = "#242f41"; addBox.style.display = "none"; editBox.style.display = "none";
             }
         }
 
         function handleFileSelect(input) {
-            const file = input.files[0];
-            if (!file) return;
-            document.getElementById('file-label').innerText = `✓ ${file.name}`;
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                tempAudioData = e.target.result;
-            };
-            reader.readAsDataURL(file);
+            const file = input.files[0]; if (!file) return;
+            document.getElementById('file-label').innerText = `✓ ФАЙЛ ВЫБРАН`; document.getElementById('file-info-status').innerText = file.name; tempAudioBlob = file;
         }
 
-        function saveNewSong() {
-            const title = document.getElementById('form-title').value.trim();
-            const author = document.getElementById('form-author').value.trim();
-            const lyrics = document.getElementById('form-lyrics').value;
+        function openAddForm() {
+            document.getElementById('form-header').innerText = "Новая песня"; document.getElementById('form-id').value = ""; document.getElementById('form-title').value = ""; document.getElementById('form-author').value = ""; document.getElementById('form-lyrics').value = ""; document.getElementById('file-label').innerText = "ВЫБРАТЬ АУДИОФАЙЛ 📁"; document.getElementById('file-info-status').innerText = ""; tempAudioBlob = null; switchTab('add-song');
+        }
 
-            if(!title || !lyrics) {
-                alert('Пожалуйста, заполните хотя бы название и текст песни!');
-                return;
+        function openEditForm() {
+            document.getElementById('form-header').innerText = "Редактирование песни"; document.getElementById('form-id').value = currentSong.id; document.getElementById('form-title').value = currentSong.title; document.getElementById('form-author').value = currentSong.author; document.getElementById('form-lyrics').value = currentSong.lyrics;
+            if(currentSong.audioBlob) {
+                document.getElementById('file-label').innerText = "✓ АУДИОФАЙЛ ТЕКУЩЕЙ ПЕСНИ СОХРАНЕН"; document.getElementById('file-info-status').innerText = "Нажмите для замены трека";
+            } else {
+                document.getElementById('file-label').innerText = "ВЫБРАТЬ АУДИОФАЙЛ 📁"; document.getElementById('file-info-status').innerText = "";
             }
+            tempAudioBlob = currentSong.audioBlob; switchTab('add-song');
+        }
 
-            const newSong = {
-                id: Date.now(),
-                title: title,
-                author: author || "Неизвестен",
-                audioUrl: tempAudioData,
-                lyrics: lyrics
-            };
+        function saveSongForm() {
+            const idVal = document.getElementById('form-id').value; const title = document.getElementById('form-title').value.trim(); const author = document.getElementById('form-author').value.trim(); const lyrics = document.getElementById('form-lyrics').value;
+            if(!title || !lyrics) { alert('Заполните название и текст песни!'); return; }
 
-            songsDatabase.push(newSong);
-            saveToStorage();
-            
-            document.getElementById('form-title').value = '';
-            document.getElementById('form-author').value = '';
-            document.getElementById('form-lyrics').value = '';
-            document.getElementById('form-audio').value = '';
-            document.getElementById('file-label').innerText = "Выбрать файл с iPhone 📁";
-            tempAudioData = "";
+            const id = idVal ? parseInt(idVal) : Date.now();
+            const songData = { id: id, title: title, author: author || "Неизвестен", audioBlob: tempAudioBlob, lyrics: lyrics };
 
-            switchTab('songs');
-            renderSongsList();
+            let tx = db.transaction("songs", "readwrite"); let store = tx.objectStore("songs"); store.put(songData);
+            tx.oncomplete = function() { loadSongsFromDB(); switchTab('songs'); };
         }
 
         function deleteCurrentSong() {
-            if(!confirm(`Вы уверены, что хотите полностью удалить песню "${currentSong.title}"?`)) return;
-            songsDatabase = songsDatabase.filter(s => s.id !== currentSong.id);
-            worshipSetIds = worshipSetIds.filter(id => id !== currentSong.id);
-            saveToStorage();
-            stopAudio();
-            switchTab('songs');
+            if(!confirm(`Удалить песню "${currentSong.title}"?`)) return;
+            let tx = db.transaction("songs", "readwrite"); let store = tx.objectStore("songs"); store.delete(currentSong.id);
+            tx.oncomplete = function() {
+                worshipSetIds = worshipSetIds.filter(id => id !== currentSong.id); localStorage.setItem('worship_set', JSON.stringify(worshipSetIds)); stopAudio(); loadSongsFromDB(); switchTab('songs');
+            };
         }
 
         function renderSongsList() {
-            const list = document.getElementById('songs-list');
-            list.innerHTML = '';
+            const list = document.getElementById('songs-list'); list.innerHTML = '';
             songsDatabase.forEach(song => {
-                const card = document.createElement('div');
-                card.className = 'song-card';
-                card.innerHTML = `
-                    <div class="song-info" onclick="openSong(${song.id})">
-                        <div class="song-title">${song.title} ${song.audioUrl ? '🔊' : ''}</div>
-                        <div class="song-author">${song.author}</div>
-                    </div>
-                `;
+                const card = document.createElement('div'); card.className = 'song-card';
+                card.innerHTML = `<div class="song-info" onclick="openSong(${song.id})"><div class="song-title">${song.title} ${song.audioBlob ? '🔊' : ''}</div><div class="song-author">${song.author}</div></div>`;
                 list.appendChild(card);
             });
             updateAdminUI();
         }
 
         function renderWorshipList() {
-            const list = document.getElementById('worship-list');
-            list.innerHTML = '';
+            const list = document.getElementById('worship-list'); list.innerHTML = '';
             const setSongs = songsDatabase.filter(s => worshipSetIds.includes(s.id));
-            if(setSongs.length === 0) {
-                list.innerHTML = '<p style="text-align:center; color:#aaa; margin-top:20px;">Список пуст. Добавьте песни из каталога.</p>';
-                return;
-            }
+            if(setSongs.length === 0) { list.innerHTML = '<p style="text-align:center; color:#718096; margin-top:20px;">Список пуст.</p>'; return; }
             setSongs.forEach(song => {
-                const card = document.createElement('div');
-                card.className = 'song-card';
-                card.innerHTML = `
-                    <div class="song-info" onclick="openSong(${song.id}, 'worship')">
-                        <div class="song-title">${song.title} ${song.audioUrl ? '🔊' : ''}</div>
-                        <div class="song-author">${song.author}</div>
-                    </div>
-                `;
+                const card = document.createElement('div'); card.className = 'song-card';
+                card.innerHTML = `<div class="song-info" onclick="openSong(${song.id}, 'worship')"><div class="song-title">${song.title} ${song.audioBlob ? '🔊' : ''}</div><div class="song-author">${song.author}</div></div>`;
                 list.appendChild(card);
             });
         }
 
         function openSong(id, fromTab = 'songs') {
-            stopAudio();
-            previousTab = fromTab;
-            currentSong = songsDatabase.find(s => s.id === id);
-            currentChordShift = 0;
-            currentAudioShift = 0;
-            switchTab('single-song');
-            
-            document.getElementById('current-song-title').innerText = currentSong.title;
-            document.getElementById('current-song-author').innerText = currentSong.author;
-            
+            stopAudio(); previousTab = fromTab; currentSong = songsDatabase.find(s => s.id === id); currentChordShift = 0; currentAudioShift = 0; switchTab('single-song');
+            document.getElementById('current-song-title').innerText = currentSong.title; document.getElementById('current-song-author').innerText = currentSong.author;
             if (player) { player.dispose(); pitchShiftNode.dispose(); player = null; }
-            
-            if (currentSong.audioUrl) {
-                document.getElementById('audio-container').style.display = "block";
-                pitchShiftNode = new Tone.PitchShift(0).toDestination();
-                player = new Tone.Player(currentSong.audioUrl).connect(pitchShiftNode);
-            } else {
-                document.getElementById('audio-container').style.display = "none";
-            }
-            
+            if (currentSong.audioBlob) {
+                document.getElementById('audio-container').style.display = "block"; pitchShiftNode = new Tone.PitchShift(0).toDestination();
+                let audioUrl = URL.createObjectURL(currentSong.audioBlob); player = new Tone.Player(audioUrl).connect(pitchShiftNode);
+            } else { document.getElementById('audio-container').style.display = "none"; }
             updateSongDisplay();
         }
 
-        function goBackToPreviousTab() {
-            switchTab(previousTab);
-        }
+        function goBackToPreviousTab() { switchTab(previousTab); }
 
         function updateSongDisplay() {
             document.getElementById('audio-pitch-status').innerText = `Тональность аудио: ${currentAudioShift > 0 ? '+' : ''}${currentAudioShift} полутон(ов)`;
             if(currentAudioShift === 0) document.getElementById('audio-pitch-status').innerText = "Тональность аудио: Оригинал";
-            
-            const formattedLyrics = formatLyrics(currentSong.lyrics, currentChordShift);
-            document.getElementById('song-lyrics-box').innerHTML = formattedLyrics;
-            
+            parseAndRenderLyrics(currentSong.lyrics, currentChordShift);
             const btnSet = document.getElementById('btn-set-status');
-            if(worshipSetIds.includes(currentSong.id)) {
-                btnSet.innerText = "✓ В сет-листе";
-                btnSet.style.background = "var(--accent)";
-            } else {
-                btnSet.innerText = "Добавить в сет";
-                btnSet.style.background = "#3a3a3c";
-            }
+            if(worshipSetIds.includes(currentSong.id)) { btnSet.innerText = "✓ В сет-листе"; btnSet.style.background = "var(--accent)"; btnSet.style.color = "white"; }
+            else { btnSet.innerText = "Добавить в сет"; btnSet.style.background = "#242f41"; btnSet.style.color = "#cbd5e1"; }
             updateAdminUI();
         }
 
-        // ИСПРАВЛЕННАЯ ФУНКЦИЯ ТРАНСПОНИРОВАНИЯ
-        // Изменения происходят ТОЛЬКО внутри квадратных скобок и не трогают текст песни
-        function formatLyrics(text, shift) {
-            return text.replace(/\[(.*?)\]/g, (match, chordInner) => {
-                // Работаем только с латинскими буквами нот A,B,C,D,E,F,G внутри скобок
-                let transposed = chordInner.replace(/[A-G]#?/g, m => {
-                    let index = scale.indexOf(m);
-                    if (index === -1) return m;
-                    return scale[(index + shift + 12) % 12];
-                });
-                return `<span class="chord">${transposed}</span>`;
+        function parseAndRenderLyrics(rawText, shift) {
+            const box = document.getElementById('song-lyrics-box'); box.innerHTML = ''; const rawLines = rawText.split('\n');
+            rawLines.forEach(rawLine => {
+                if(rawLine.trim() === '') { const br = document.createElement('div'); br.style.height = '15px'; box.appendChild(br); return; }
+                if(!rawLine.includes('[')) {
+                    const textLine = document.createElement('div'); textLine.className = 'line'; textLine.innerText = rawLine;
+                    if(rawLine.includes('КУПЛЕТ') || rawLine.includes('ПРИПЕВ') || rawLine.includes('INTRO') || rawLine.includes('BRIDGE') || rawLine.includes('ПРОИГРЫШ')) {
+                        textLine.style.color = '#718096'; textLine.style.fontWeight = '700'; textLine.style.fontSize = '0.95rem'; textLine.style.marginBottom = '6px';
+                    }
+                    box.appendChild(textLine); return;
+                }
+                let chordLineStr = ""; let textLineStr = ""; let index = 0;
+                while(index < rawLine.length) {
+                    if(rawLine[index] === '[') {
+                        let endIdx = rawLine.indexOf(']', index);
+                        if(endIdx !== -1) {
+                            let origChord = rawLine.substring(index + 1, endIdx);
+                            let transpChord = origChord.replace(/[A-G|H]#?/g, m => {
+                                let scaleIdx = scale.indexOf(m); if (scaleIdx === -1) return m; return scale[(scaleIdx + shift + 12) % 12];
+                            });
+                            let diff = textLineStr.length - chordLineStr.length; if(diff > 0) { chordLineStr += " ".repeat(diff); }
+                            chordLineStr += transpChord; index = endIdx + 1; continue;
+                        }
+                    }
+                    textLineStr += rawLine[index]; index++;
+                }
+                if(chordLineStr.trim() !== '') { const cDiv = document.createElement('div'); cDiv.className = 'chord-line'; cDiv.textContent = chordLineStr; box.appendChild(cDiv); }
+                const tDiv = document.createElement('div'); tDiv.className = 'line'; tDiv.textContent = textLineStr; box.appendChild(tDiv);
             });
         }
 
         function changeChordsPitch(amount) { currentChordShift += amount; updateSongDisplay(); }
-        
-        function changeAudioPitch(amount) { 
-            currentAudioShift += amount; 
-            if(pitchShiftNode) { pitchShiftNode.pitch = currentAudioShift; } 
-            updateSongDisplay(); 
-        }
+        function changeAudioPitch(amount) { currentAudioShift += amount; if(pitchShiftNode) { pitchShiftNode.pitch = currentAudioShift; } updateSongDisplay(); }
 
         async function toggleAudio() {
-            if (!player) return;
-            await Tone.start();
+            if (!player) return; await Tone.start();
             if (isPlaying) { stopAudio(); } 
-            else { player.start(); document.getElementById('btn-play').innerText = "Pause"; document.getElementById('btn-play').style.background = "#ef4444"; isPlaying = true; }
+            else { player.start(); document.getElementById('btn-play').innerText = "Pause"; document.getElementById('btn-play').style.background = "var(--danger)"; isPlaying = true; }
         }
 
-        function stopAudio() { 
-            if (player) player.stop(); 
-            document.getElementById('btn-play').innerText = "Play"; 
-            document.getElementById('btn-play').style.background = "var(--primary)"; 
-            isPlaying = false; 
-        }
-        
+        function stopAudio() { if (player) player.stop(); document.getElementById('btn-play').innerText = "Play"; document.getElementById('btn-play').style.background = "var(--primary)"; isPlaying = false; }
         function toggleWorshipStatus() {
-            if(worshipSetIds.includes(currentSong.id)) { worshipSetIds = worshipSetIds.filter(id => id !== currentSong.id); } 
-            else { worshipSetIds.push(currentSong.id); }
-            saveToStorage();
-            updateSongDisplay();
+            if(worshipSetIds.includes(currentSong.id)) { worshipSetIds = worshipSetIds.filter(id => id !== currentSong.id); } else { worshipSetIds.push(currentSong.id); }
+            localStorage.setItem('worship_set', JSON.stringify(worshipSetIds)); updateSongDisplay();
         }
 
         function shareWorshipList() {
-            const setSongs = songsDatabase.filter(s => worshipSetIds.includes(s.id));
-            if(setSongs.length === 0) return alert('Список пуст!');
-            let text = "📋 ВОСКРЕСНЫЙ СЕТ-ЛИСТ:\n\n";
-            setSongs.forEach((s, index) => { text += `${index + 1}. ${s.title} (${s.author})\n`; });
-            if (navigator.share) { navigator.share({ title: 'Worship Set', text: text }); } 
-            else { navigator.clipboard.writeText(text); alert('Список скопирован!'); }
+            const setSongs = songsDatabase.filter(s => worshipSetIds.includes(s.id)); if(setSongs.length === 0) return alert('Список пуст!');
+            let text = "📋 ВОСКРЕСНЫЙ СЕТ-ЛИСТ:\n\n"; setSongs.forEach((s, index) => { text += `${index + 1}. ${s.title} (${s.author})\n`; });
+            if (navigator.share) { navigator.share({ title: 'Worship Set', text: text }); } else { navigator.clipboard.writeText(text); alert('Список скопирован!'); }
         }
 
         function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            
-            if(tabName === 'songs') {
-                document.getElementById('tab-songs').classList.add('active');
-                document.getElementById('nav-songs').classList.add('active');
-                document.getElementById('page-title').innerText = "База песен";
-                renderSongsList();
-            } else if(tabName === 'worship') {
-                document.getElementById('tab-worship').classList.add('active');
-                document.getElementById('nav-worship').classList.add('active');
-                document.getElementById('page-title').innerText = "Воскресный сет";
-                renderWorshipList();
-            } else if(tabName === 'single-song') {
-                document.getElementById('tab-single-song').classList.add('active');
-            } else if(tabName === 'add-song') {
-                document.getElementById('tab-add-song').classList.add('active');
-                document.getElementById('page-title').innerText = "Новая песня";
-            }
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active')); document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            if(tabName === 'songs') { document.getElementById('tab-songs').classList.add('active'); document.getElementById('nav-songs').classList.add('active'); document.getElementById('page-title').innerText = "База песен"; renderSongsList(); } 
+            else if(tabName === 'worship') { document.getElementById('tab-worship').classList.add('active'); document.getElementById('nav-worship').classList.add('active'); document.getElementById('page-title').innerText = "Воскресный сет"; renderWorshipList(); } 
+            else if(tabName === 'single-song') { document.getElementById('tab-single-song').classList.add('active'); } else if(tabName === 'add-song') { document.getElementById('tab-add-song').classList.add('active'); }
         }
-        
-        renderSongsList();
     </script>
 </body>
 </html>
